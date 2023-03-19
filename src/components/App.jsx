@@ -10,7 +10,7 @@ export class App extends Component {
   state = {
     searchText: '',
     page: 1,
-    arrayImg: [],
+    img: [],
     isLoading: false,
     buttonTogle: false,
     data: null,
@@ -30,8 +30,12 @@ export class App extends Component {
   };
 
   componentDidUpdate(_, prevState) {
-    if (prevState.searchText !== this.state.searchText) {
+    if (
+      prevState.searchText !== this.state.searchText ||
+      this.state.page !== prevState.page
+    ) {
       this.setState({ isLoading: true });
+
       getNews(this.state.searchText, this.state.page)
         .then(response => response.json())
         .then(data => {
@@ -40,9 +44,9 @@ export class App extends Component {
               'Sorry, but nothing was found for your search'
             );
           }
+
           const hits = data.hits;
           this.buttonTogle(hits.length);
-
           this.setState({ data: data.hits });
         })
         .catch(error => {
@@ -53,8 +57,6 @@ export class App extends Component {
         });
     }
   }
-
-
 
   handleSearch = searchText => {
     this.setState({ searchText });
@@ -68,7 +70,7 @@ export class App extends Component {
         <Searchbar handleSearch={handleSearch} />
         {isLoading && <Loader />}
         {data && <ImageGallery data={data} />}
-        {buttonTogle && <Button onClick={this.onLoadMore} />}
+        {buttonTogle && <Button onLoadMore={this.onLoadMore} />}
       </>
     );
   }
