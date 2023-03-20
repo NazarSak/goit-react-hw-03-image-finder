@@ -5,6 +5,7 @@ import { getNews } from 'services/getNews';
 import { Button } from './button/Button';
 import { Loader } from 'components/loader/Loader';
 import { ImageGallery } from 'components/imageGallery/ImageGallery';
+import { Modal } from './modal/Modal';
 
 export class App extends Component {
   state = {
@@ -14,20 +15,10 @@ export class App extends Component {
     isLoading: false,
     buttonTogle: false,
     data: null,
+    isModal: false,
+    currenPreview : "",
   };
 
-  onLoadMore = () => {
-    this.setState(prevState => ({
-      page: prevState.page + 1,
-    }));
-  };
-
-  buttonTogle = length => {
-    if (length >= 12) {
-      return this.setState({ buttonTogle: true });
-    }
-    return this.setState({ buttonTogle: false });
-  };
 
   componentDidUpdate(_, prevState) {
     if (
@@ -58,9 +49,41 @@ export class App extends Component {
     }
   }
 
+
+openModal = url => {
+ this.setState({currenPreview:url})
+}
+
+
+  closeModal = () => {
+   this.setState({currenPreview:""})
+  }
+
+
+
+  showModal = () => {
+    this.setState({isModal:true})
+  }
+
+
+  onLoadMore = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
+  };
+
+  buttonTogle = length => {
+    if (length >= 12) {
+      return this.setState({ buttonTogle: true });
+    }
+    return this.setState({ buttonTogle: false });
+  };
+
+
   handleSearch = searchText => {
     this.setState({ searchText });
   };
+
 
   render() {
     const { handleSearch } = this;
@@ -71,6 +94,35 @@ export class App extends Component {
         {isLoading && <Loader />}
         {data && <ImageGallery data={data} />}
         {buttonTogle && <Button onLoadMore={this.onLoadMore} />}
+        {this.state.isModal && (
+
+
+
+
+
+          <Modal onClose = {this.closeModal} openModal={this.openModal}>
+            {/* <h1>asdasdsad</h1>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Laboriosam neque saepe eligendi ducimus nam id enim temporibus
+              obcaecati. Id, ratione. Quisquam dolorem tempore in perferendis,
+              quam corrupti magni eum qui!
+            </p>
+            <button type="button" onClick={this.closeModal}>
+          aaaaaaaa
+        </button> */}
+          </Modal>
+
+
+
+
+
+
+
+        )}
+        {/* <button type="button" onClick={this.showModal}>
+          aaaaaaaa
+        </button> */}
       </>
     );
   }

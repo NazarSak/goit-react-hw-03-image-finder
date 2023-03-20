@@ -1,22 +1,31 @@
-// import React ,{Component} from "react";
-// import * as basicLightbox from 'basiclightbox'
-// import { ImageGalleryItem } from "components/imageGalleryItem/ImageGalleryItem";
-// class Modal extends Component {
-//   static = {
+import React, { Component } from 'react';
+import { ModalBack, ModalCon } from './modal.styled';
 
-//   } 
-  
-//   handleChangeImg = (e) => {
-//     const instance = basicLightbox.create(`
-//         <img src="${e.target.dataset.sorce} width="800" height="600">
-//     `)
+export class Modal extends Component {
+  state = {};
 
-//     instance.show()
-//   }
-// render() {
-//     return(
-//         <ImageGalleryItem handleChangeImg={this.handleChangeImg}/>
-//     )
-// }
+  componentDidMount() {
+    window.addEventListener('keydown', this.keyClose);
+    window.addEventListener("click",this.clickClose)
+  }
 
-// }
+clickClose = () => {
+    console.log("object");
+    // this.props.onClose() 
+}
+
+  keyClose = e => {
+    if (e.code === 'Escape') {
+      console.log('object');
+      this.props.onClose() 
+    }
+  };
+
+  render() {
+    return (
+      <ModalBack>
+        <ModalCon>{this.props.children}</ModalCon>
+      </ModalBack>
+    );
+  }
+}
