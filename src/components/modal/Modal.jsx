@@ -6,7 +6,7 @@ export class Modal extends Component {
 
   componentDidMount() {
     window.addEventListener('keydown', this.keyClose);
-    window.addEventListener("click",this.clickClose)
+    // window.addEventListener("click",this.clickClose)
   }
 
 clickClose = () => {

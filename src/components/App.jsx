@@ -16,9 +16,8 @@ export class App extends Component {
     buttonTogle: false,
     data: null,
     isModal: false,
-    currenPreview : "",
+    currenPreview: '',
   };
-
 
   componentDidUpdate(_, prevState) {
     if (
@@ -49,22 +48,17 @@ export class App extends Component {
     }
   }
 
-
-openModal = url => {
- this.setState({currenPreview:url})
-}
-
+  openModal = url => {
+    this.setState({ currenPreview: url });
+  };
 
   closeModal = () => {
-   this.setState({currenPreview:""})
-  }
-
-
+    this.setState({ currenPreview: '' });
+  };
 
   showModal = () => {
-    this.setState({isModal:true})
-  }
-
+    this.setState({ isModal: true });
+  };
 
   onLoadMore = () => {
     this.setState(prevState => ({
@@ -79,11 +73,9 @@ openModal = url => {
     return this.setState({ buttonTogle: false });
   };
 
-
   handleSearch = searchText => {
     this.setState({ searchText });
   };
-
 
   render() {
     const { handleSearch } = this;
@@ -92,37 +84,11 @@ openModal = url => {
       <>
         <Searchbar handleSearch={handleSearch} />
         {isLoading && <Loader />}
-        {data && <ImageGallery data={data} />}
-        {buttonTogle && <Button onLoadMore={this.onLoadMore} />}
+        {data && <ImageGallery data={data} openModal={this.openModal()}  />}
+        {buttonTogle && <Button />}
         {this.state.isModal && (
-
-
-
-
-
-          <Modal onClose = {this.closeModal} openModal={this.openModal}>
-            {/* <h1>asdasdsad</h1>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Laboriosam neque saepe eligendi ducimus nam id enim temporibus
-              obcaecati. Id, ratione. Quisquam dolorem tempore in perferendis,
-              quam corrupti magni eum qui!
-            </p>
-            <button type="button" onClick={this.closeModal}>
-          aaaaaaaa
-        </button> */}
-          </Modal>
-
-
-
-
-
-
-
+          <Modal onClose={this.closeModal}  openModal={this.openModal()} />
         )}
-        {/* <button type="button" onClick={this.showModal}>
-          aaaaaaaa
-        </button> */}
       </>
     );
   }
