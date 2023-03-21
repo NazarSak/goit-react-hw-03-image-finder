@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export const ImageGalleryItem = ({ id, webformatURL,largeImageURL,openModal }) => {
+export const ImageGalleryItem = ({ webformatURL,largeImageURL,openModal }) => {
   return (
-    <li key={id} 
+    <li 
     onClick = {() => {
       openModal(largeImageURL)
     }}>
@@ -10,3 +11,9 @@ export const ImageGalleryItem = ({ id, webformatURL,largeImageURL,openModal }) =
     </li>
   );
 };
+
+ImageGalleryItem.propTypes = {
+  webformatURL: PropTypes.string.isRequired,
+  openModal : PropTypes.func.isRequired,
+  largeImageURL : PropTypes.string.isRequired
+}

@@ -55,7 +55,7 @@ export class App extends Component {
   };
 
 modalClose = () => {
-  this.setState({isModal:true})
+  this.setState({isModal:false})
 }
 
 
@@ -84,7 +84,7 @@ modalClose = () => {
         <Searchbar handleSearch={handleSearch} />
         {isLoading && <Loader />}
         {data && <ImageGallery data={data} onImageClick={this.openModal}  />}
-        {buttonTogle && <Button />}
+        {buttonTogle && <Button onLoadMore={this.onLoadMore} />}
         {isModal && (
         <Modal onModalClose={this.modalClose}  image={currenPreview}/>
         )}
