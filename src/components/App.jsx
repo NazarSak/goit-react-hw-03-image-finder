@@ -84,10 +84,10 @@ export class App extends Component {
       <>
         <Searchbar handleSearch={handleSearch} />
         {isLoading && <Loader />}
-        {data && <ImageGallery data={data} openModal={this.openModal()}  />}
+        {data && <ImageGallery data={data} openModal={this.openModal}  />}
         {buttonTogle && <Button />}
         {this.state.isModal && (
-          <Modal onClose={this.closeModal}  openModal={this.openModal()} />
+          <Modal onClose={this.closeModal} showModal={this.showModal} openModal={this.openModal()} />
         )}
       </>
     );
