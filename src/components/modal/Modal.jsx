@@ -21,7 +21,7 @@ export class Modal extends Component {
 
   render() {
     return (
-      <ModalBack>
+      <ModalBack onClick={this.handleBackDropClick}>
         <ModalCon>
           <img 
           src={this.props.image} 
