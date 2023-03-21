@@ -2,29 +2,32 @@ import React, { Component } from 'react';
 import { ModalBack, ModalCon } from './modal.styled';
 
 export class Modal extends Component {
-  state = {};
 
   componentDidMount() {
     window.addEventListener('keydown', this.keyClose);
-    // window.addEventListener("click",this.clickClose)
   }
-
-clickClose = () => {
-    console.log("object");
-    // this.props.onClose() 
-}
 
   keyClose = e => {
     if (e.code === 'Escape') {
-      console.log('object');
-      this.props.onClose() 
+      this.props.onClose();
+    }
+  };
+
+  handleBackDropClick = e => {
+    if (e.target === e.currentTarget) {
+      this.props.onModalClose();
     }
   };
 
   render() {
     return (
       <ModalBack>
-        <ModalCon>{this.props.children}</ModalCon>
+        <ModalCon>
+          <img 
+          src={this.props.image} 
+          alt={this.props.tag} 
+          />
+        </ModalCon>
       </ModalBack>
     );
   }

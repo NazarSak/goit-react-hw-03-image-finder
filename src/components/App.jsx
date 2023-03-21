@@ -49,16 +49,15 @@ export class App extends Component {
   }
 
   openModal = url => {
-    this.setState({ currenPreview: url });
+    this.setState({ currenPreview: url,
+    isModal:true,
+    });
   };
 
-  closeModal = () => {
-    this.setState({ currenPreview: '' });
-  };
+modalClose = () => {
+  this.setState({isModal:true})
+}
 
-  showModal = () => {
-    this.setState({ isModal: true });
-  };
 
   onLoadMore = () => {
     this.setState(prevState => ({
@@ -79,15 +78,15 @@ export class App extends Component {
 
   render() {
     const { handleSearch } = this;
-    const { data, isLoading, buttonTogle } = this.state;
+    const { data, isLoading, buttonTogle,isModal,currenPreview } = this.state;
     return (
       <>
         <Searchbar handleSearch={handleSearch} />
         {isLoading && <Loader />}
-        {data && <ImageGallery data={data} openModal={this.openModal}  />}
+        {data && <ImageGallery data={data} onImageClick={this.openModal}  />}
         {buttonTogle && <Button />}
-        {this.state.isModal && (
-          <Modal onClose={this.closeModal} showModal={this.showModal} openModal={this.openModal()} />
+        {isModal && (
+        <Modal onModalClose={this.modalClose}  image={currenPreview}/>
         )}
       </>
     );
