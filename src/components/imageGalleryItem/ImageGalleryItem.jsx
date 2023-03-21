@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+
 export const ImageGalleryItem = ({ webformatURL,largeImageURL,openModal }) => {
   return (
-    <li 
+    <li
     onClick = {() => {
       openModal(largeImageURL)
     }}>
-      <img src={webformatURL} alt="describe" />
+      <img src={webformatURL} alt="describe" width="400px" height="250px"/>
     </li>
   );
 };

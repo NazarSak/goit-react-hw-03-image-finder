@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { InputValue, FormValue, ButtonValue } from './searchbar.styled';
 
 class Searchbar extends Component {
   state = {
@@ -12,23 +13,23 @@ class Searchbar extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.handleSearch(this.state.value);
-    this.reset()
+    this.reset();
   };
 
   reset = () => {
-    this.setState({value:""})
-  }
+    this.setState({ value: '' });
+  };
 
   render() {
     const { value } = this.state;
     return (
       <header>
-        <form onSubmit={this.handleSubmit}>
-          <button type="submit">
+        <FormValue onSubmit={this.handleSubmit}>
+          <ButtonValue type="submit">
             <span>Search</span>
-          </button>
+          </ButtonValue>
 
-          <input
+          <InputValue
             type="text"
             autoComplete="off"
             autoFocus
@@ -36,7 +37,7 @@ class Searchbar extends Component {
             value={value}
             onChange={this.handleChange}
           />
-        </form>
+        </FormValue>
       </header>
     );
   }
