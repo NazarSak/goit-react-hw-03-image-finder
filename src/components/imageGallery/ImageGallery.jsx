@@ -1,6 +1,5 @@
 import React from 'react';
 import { UlGeneral } from './imageGallery.styled';
-import PropTypes from 'prop-types';
 
 import { ImageGalleryItem } from 'components/imageGalleryItem/ImageGalleryItem';
 export const ImageGallery = ({ data,onImageClick }) => {
