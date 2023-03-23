@@ -17,6 +17,7 @@ export class App extends Component {
     data: null,
     isModal: false,
     currenPreview: '',
+    totalImage : 0,
   };
 
   componentDidUpdate(_, prevState) {
@@ -29,7 +30,7 @@ export class App extends Component {
       getNews(this.state.searchText, this.state.page)
         .then(response => response.json())
         .then(data => {
-          if (data.hits.length === 0) {
+          if (!data.total) {
             Notiflix.Notify.failure(
               'Sorry, but nothing was found for your search'
             );
@@ -37,7 +38,14 @@ export class App extends Component {
 
           const hits = data.hits;
           this.buttonTogle(hits.length);
-          this.setState({ data: data.hits });
+          
+          
+          this.setState(prevState => ({
+            img: [...prevState.img , ...data.hits ],
+            totalImage:data.total,
+          }));
+
+          console.log(this.state.img);
         })
         .catch(error => {
           console.log(error);
@@ -73,19 +81,32 @@ modalClose = () => {
   };
 
   handleSearch = searchText => {
-    this.setState({ searchText });
+    this.setState({ searchText, img:[],pag:1 });
   };
 
   render() {
     const { handleSearch } = this;
-    const { data, isLoading, buttonTogle,isModal,currenPreview } = this.state;
+    const { isLoading, buttonTogle,isModal,currenPreview,img,totalImage } = this.state;
     return (
       <>
         <Searchbar handleSearch={handleSearch} />
+       
+        {img.length !== 0  && (<ImageGallery data={img} onImageClick={this.openModal}  />)}
+
+
+
+
+
+
+
+
+
+
+
+
         {isLoading && <Loader />}
-        {data && <ImageGallery data={data} onImageClick={this.openModal}  />}
-        {buttonTogle && <Button onLoadMore={this.onLoadMore} />}
-        {isModal && (
+        {img.length !== totalImage && buttonTogle && <Button onLoadMore={this.onLoadMore} />}
+        { isModal && (
         <Modal onModalClose={this.modalClose}  image={currenPreview}/>
         )}
       </>

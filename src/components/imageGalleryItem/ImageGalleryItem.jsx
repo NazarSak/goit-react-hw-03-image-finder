@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export const ImageGalleryItem = ({ webformatURL,largeImageURL,openModal }) => {
   return (
-    <li
+    <li 
     onClick = {() => {
       openModal(largeImageURL)
     }}>
